@@ -26,6 +26,7 @@
         'populate project textfield
         project = projectDAO.selectSpecficProjectByProjectName(Login.currentUser.projDetails)
         txtbxProject.Text = project.projectname
+        MessageBox.Show(project.projectname)
 
 
     End Sub
