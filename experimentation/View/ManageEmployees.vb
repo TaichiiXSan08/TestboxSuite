@@ -2,12 +2,13 @@
 Imports System.Drawing.Imaging
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports BCrypt.Net.BCrypt
-Public Class Form1
+Public Class ManageEmployees
     Dim emp As New Employee
     Dim empDAO As New EmployeeDAO
     Dim empRole As New EmployeeRole
     Dim empRoleDAO As New EmployeeRolesDAO
     Dim empRoleMappingDAO As New EmployeeRolesMappingDAO
+    Dim projDAO As New ProjectDAO
     Dim defaultPassword As String = "test123"
 
     Private Sub btnTestConnection_Click(sender As Object, e As EventArgs) Handles btnTestConnection.Click
@@ -26,32 +27,31 @@ Public Class Form1
 
         empDAO.AddEmployee(emp)
 
-        refreshEmployeeGrid()
-
         empID = empRoleMappingDAO.getLatestEmpID
-        emproleLevel = cbxTest1.Text.Substring(0, 1)
-        empRoleMappingDAO.insertEmployeeRoleMapping(empID, emproleLevel)
+        emproleLevel = cbxAccessLevel.Text.Substring(0, 1)
+        empRoleMappingDAO.insertEmployeeRoleMapping(empID, emproleLevel, Login.currentUser.projDetails)
 
-        MessageBox.Show(empID & " " & emproleLevel)
+        projDAO.insertEmployeeProjectMapping(empID, Login.currentUser.projDetails)
 
+        refreshEmployeeGrid()
 
     End Sub
 
-    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub ManageEmployees_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         btnDone.Enabled = False
         btnUpdate.Enabled = False
 
         refreshEmployeeGrid()
-        dgvEmployee.Columns(0).ReadOnly = True
+        'dgvEmployee.Columns(0).ReadOnly = True
         hashPassword(defaultPassword)
 
-        cbxTest1.DataSource = empRoleDAO.selectEmployeeRoles(empRole).Tables("employeeroles")
-        cbxTest1.DisplayMember = "roleinfo"
-        cbxTest1.ValueMember = "roleinfo"
+        cbxAccessLevel.DataSource = empRoleDAO.selectEmployeeRoles(empRole).Tables("employeeroles")
+        cbxAccessLevel.DisplayMember = "roleinfo"
+        cbxAccessLevel.ValueMember = "roleinfo"
     End Sub
 
     Private Sub refreshEmployeeGrid()
-        dgvEmployee.DataSource = empDAO.selectAllEmployee(emp).Tables("Employee")
+        dgvEmployee.DataSource = empDAO.selectAllEmployeeByProject(emp, Login.currentUser.projDetails).Tables("emp")
     End Sub
 
     Private Sub dgvEmployee_SelectionChanged(sender As Object, e As EventArgs) Handles dgvEmployee.SelectionChanged
@@ -78,20 +78,21 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub dgvEmployee_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles dgvEmployee.CellValueChanged
-        Dim colName As String
-        Dim newValue As String
+    'Private Sub dgvEmployee_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles dgvEmployee.CellValueChanged
+    '    Dim colName As String
+    '    Dim newValue As String
 
-        colName = dgvEmployee.Columns(dgvEmployee.SelectedCells(0).ColumnIndex).Name
-        newValue = dgvEmployee.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString()
-        hashPassword(defaultPassword)
-        refreshEmployeeObject()
+    '    colName = dgvEmployee.Columns(dgvEmployee.SelectedCells(0).ColumnIndex).Name
+    '    newValue = dgvEmployee.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString()
+    '    hashPassword(defaultPassword)
+    '    refreshEmployeeObject()
 
-        empDAO.updateEmployee(emp, colName, newValue)
+    '    empDAO.updateEmployee(emp, colName, newValue)
 
-    End Sub
+    'End Sub
 
     Sub refreshEmployeeObject()
+        Dim splitArray() As String = cbxAccessLevel.SelectedValue.ToString.Trim.Split("-")
         If Not String.IsNullOrEmpty(txtbxID.Text) Then
             emp.id = Integer.Parse(txtbxID.Text.Trim)
         End If
@@ -100,6 +101,9 @@ Public Class Form1
         emp.userName = txtbxUserName.Text.Trim
         emp.eMail = txtbxEmail.Text.Trim
         emp.isActive = chbxIsActive.Checked
+
+        empRole.accesslevel = splitArray(0)
+        empRole.accesslevelname = splitArray(1)
     End Sub
 
     Private Sub dgvEmployee_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvEmployee.CellClick
@@ -138,6 +142,7 @@ Public Class Form1
     Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
         btnAdd.Enabled = False
         btnTestConnection.Enabled = False
+        btnDone.Enabled = True
     End Sub
 
     Private Sub btnDone_Click(sender As Object, e As EventArgs) Handles btnDone.Click
@@ -145,5 +150,25 @@ Public Class Form1
         btnTestConnection.Enabled = True
         btnDone.Enabled = False
         btnUpdate.Enabled = False
+
+        'update database based on the current values in the textboxes
+        refreshEmployeeObject()
+        empRole = empRoleDAO.getSpecificEmployeeRoleViaAccessLevel(empRole)
+
+        empDAO.updateEmployee(emp)
+        empRoleMappingDAO.UpdateRoleMapping(emp, Login.currentUser.projDetails, empRole)
+
     End Sub
+
+    Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
+        Me.Hide()
+        MessageBox.Show("visible landing page " & LandingPage.Visible)
+        If LandingPage.Visible Then
+            LandingPage.Visible = False
+        Else
+            Me.Close
+        End If
+    End Sub
+
+
 End Class

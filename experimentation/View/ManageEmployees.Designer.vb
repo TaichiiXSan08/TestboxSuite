@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class Form1
+Partial Class ManageEmployees
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -41,8 +41,9 @@ Partial Class Form1
         btnUpdate = New Button()
         lblID = New Label()
         txtbxID = New TextBox()
-        cbxTest1 = New ComboBox()
+        cbxAccessLevel = New ComboBox()
         btnDone = New Button()
+        btnBack = New Button()
         CType(dgvEmployee, ComponentModel.ISupportInitialize).BeginInit()
         CType(DatabaseConnectionBindingSource, ComponentModel.ISupportInitialize).BeginInit()
         CType(DatabaseConnectionBindingSource1, ComponentModel.ISupportInitialize).BeginInit()
@@ -50,74 +51,79 @@ Partial Class Form1
         ' 
         ' txtbxFirstName
         ' 
-        txtbxFirstName.Location = New Point(176, 55)
+        txtbxFirstName.Location = New Point(198, 55)
         txtbxFirstName.Name = "txtbxFirstName"
-        txtbxFirstName.Size = New Size(242, 27)
+        txtbxFirstName.Size = New Size(272, 27)
         txtbxFirstName.TabIndex = 0
         ' 
         ' lblFName
         ' 
         lblFName.AutoSize = True
-        lblFName.Location = New Point(69, 55)
+        lblFName.ForeColor = Color.Transparent
+        lblFName.Location = New Point(78, 55)
         lblFName.Name = "lblFName"
-        lblFName.Size = New Size(80, 20)
+        lblFName.Size = New Size(86, 20)
         lblFName.TabIndex = 1
         lblFName.Text = "First Name"
         ' 
         ' lblLName
         ' 
         lblLName.AutoSize = True
-        lblLName.Location = New Point(69, 106)
+        lblLName.ForeColor = Color.Transparent
+        lblLName.Location = New Point(78, 106)
         lblLName.Name = "lblLName"
-        lblLName.Size = New Size(79, 20)
+        lblLName.Size = New Size(84, 20)
         lblLName.TabIndex = 3
         lblLName.Text = "Last Name"
         ' 
         ' txtbxLastName
         ' 
-        txtbxLastName.Location = New Point(176, 106)
+        txtbxLastName.Location = New Point(198, 106)
         txtbxLastName.Name = "txtbxLastName"
-        txtbxLastName.Size = New Size(242, 27)
+        txtbxLastName.Size = New Size(272, 27)
         txtbxLastName.TabIndex = 2
         ' 
         ' lblUserName
         ' 
         lblUserName.AutoSize = True
-        lblUserName.Location = New Point(69, 157)
+        lblUserName.ForeColor = Color.Transparent
+        lblUserName.Location = New Point(78, 157)
         lblUserName.Name = "lblUserName"
-        lblUserName.Size = New Size(82, 20)
+        lblUserName.Size = New Size(87, 20)
         lblUserName.TabIndex = 5
         lblUserName.Text = "User Name"
         ' 
         ' txtbxUserName
         ' 
-        txtbxUserName.Location = New Point(176, 157)
+        txtbxUserName.Location = New Point(198, 157)
         txtbxUserName.Name = "txtbxUserName"
-        txtbxUserName.Size = New Size(242, 27)
+        txtbxUserName.Size = New Size(272, 27)
         txtbxUserName.TabIndex = 4
         ' 
         ' lblEmail
         ' 
         lblEmail.AutoSize = True
-        lblEmail.Location = New Point(66, 209)
+        lblEmail.ForeColor = Color.Transparent
+        lblEmail.Location = New Point(74, 209)
         lblEmail.Name = "lblEmail"
-        lblEmail.Size = New Size(46, 20)
+        lblEmail.Size = New Size(47, 20)
         lblEmail.TabIndex = 7
         lblEmail.Text = "Email"
         ' 
         ' txtbxEmail
         ' 
-        txtbxEmail.Location = New Point(173, 209)
+        txtbxEmail.Location = New Point(195, 209)
         txtbxEmail.Name = "txtbxEmail"
-        txtbxEmail.Size = New Size(242, 27)
+        txtbxEmail.Size = New Size(272, 27)
         txtbxEmail.TabIndex = 6
         ' 
         ' chbxIsActive
         ' 
         chbxIsActive.AutoSize = True
-        chbxIsActive.Location = New Point(173, 242)
+        chbxIsActive.ForeColor = Color.Transparent
+        chbxIsActive.Location = New Point(195, 242)
         chbxIsActive.Name = "chbxIsActive"
-        chbxIsActive.Size = New Size(72, 24)
+        chbxIsActive.Size = New Size(75, 24)
         chbxIsActive.TabIndex = 9
         chbxIsActive.Text = "Active"
         chbxIsActive.UseVisualStyleBackColor = True
@@ -125,9 +131,10 @@ Partial Class Form1
         ' lblAccessLevel
         ' 
         lblAccessLevel.AutoSize = True
-        lblAccessLevel.Location = New Point(500, 55)
+        lblAccessLevel.ForeColor = Color.Transparent
+        lblAccessLevel.Location = New Point(562, 55)
         lblAccessLevel.Name = "lblAccessLevel"
-        lblAccessLevel.Size = New Size(91, 20)
+        lblAccessLevel.Size = New Size(96, 20)
         lblAccessLevel.TabIndex = 14
         lblAccessLevel.Text = "Access Level"
         ' 
@@ -135,13 +142,15 @@ Partial Class Form1
         ' 
         dgvEmployee.AllowUserToAddRows = False
         dgvEmployee.AllowUserToDeleteRows = False
-        dgvEmployee.BackgroundColor = Color.FromArgb(CByte(255), CByte(128), CByte(128))
+        dgvEmployee.BackgroundColor = Color.FromArgb(CByte(204), CByte(204), CByte(204))
+        dgvEmployee.BorderStyle = BorderStyle.Fixed3D
         dgvEmployee.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvEmployee.Location = New Point(56, 289)
+        dgvEmployee.Location = New Point(63, 289)
         dgvEmployee.Name = "dgvEmployee"
+        dgvEmployee.ReadOnly = True
         dgvEmployee.RowHeadersWidth = 51
         dgvEmployee.RowTemplate.Height = 29
-        dgvEmployee.Size = New Size(890, 262)
+        dgvEmployee.Size = New Size(1001, 262)
         dgvEmployee.TabIndex = 16
         ' 
         ' DatabaseConnectionBindingSource
@@ -150,21 +159,25 @@ Partial Class Form1
         ' 
         ' btnTestConnection
         ' 
-        btnTestConnection.Location = New Point(595, 97)
+        btnTestConnection.BackColor = Color.Silver
+        btnTestConnection.ForeColor = Color.White
+        btnTestConnection.Location = New Point(669, 97)
         btnTestConnection.Name = "btnTestConnection"
-        btnTestConnection.Size = New Size(175, 29)
+        btnTestConnection.Size = New Size(197, 29)
         btnTestConnection.TabIndex = 17
         btnTestConnection.Text = "TestConnection"
-        btnTestConnection.UseVisualStyleBackColor = True
+        btnTestConnection.UseVisualStyleBackColor = False
         ' 
         ' btnAdd
         ' 
-        btnAdd.Location = New Point(595, 132)
+        btnAdd.BackColor = Color.FromArgb(CByte(0), CByte(255), CByte(200))
+        btnAdd.ForeColor = Color.White
+        btnAdd.Location = New Point(669, 132)
         btnAdd.Name = "btnAdd"
-        btnAdd.Size = New Size(175, 29)
+        btnAdd.Size = New Size(197, 29)
         btnAdd.TabIndex = 18
         btnAdd.Text = "Add"
-        btnAdd.UseVisualStyleBackColor = True
+        btnAdd.UseVisualStyleBackColor = False
         ' 
         ' DatabaseConnectionBindingSource1
         ' 
@@ -172,55 +185,81 @@ Partial Class Form1
         ' 
         ' btnUpdate
         ' 
-        btnUpdate.Location = New Point(595, 167)
+        btnUpdate.BackColor = Color.FromArgb(CByte(255), CByte(107), CByte(107))
+        btnUpdate.Location = New Point(669, 167)
         btnUpdate.Name = "btnUpdate"
-        btnUpdate.Size = New Size(175, 29)
+        btnUpdate.Size = New Size(197, 29)
         btnUpdate.TabIndex = 19
         btnUpdate.Text = "Update"
-        btnUpdate.UseVisualStyleBackColor = True
+        btnUpdate.UseVisualStyleBackColor = False
         ' 
         ' lblID
         ' 
         lblID.AutoSize = True
-        lblID.Location = New Point(69, 22)
+        lblID.ForeColor = Color.Transparent
+        lblID.Location = New Point(78, 22)
         lblID.Name = "lblID"
-        lblID.Size = New Size(24, 20)
+        lblID.Size = New Size(25, 20)
         lblID.TabIndex = 21
         lblID.Text = "ID"
         ' 
         ' txtbxID
         ' 
         txtbxID.Enabled = False
-        txtbxID.Location = New Point(176, 22)
+        txtbxID.Location = New Point(198, 22)
         txtbxID.Name = "txtbxID"
-        txtbxID.Size = New Size(242, 27)
+        txtbxID.Size = New Size(272, 27)
         txtbxID.TabIndex = 20
         ' 
-        ' cbxTest1
+        ' cbxAccessLevel
         ' 
-        cbxTest1.FormattingEnabled = True
-        cbxTest1.Location = New Point(619, 54)
-        cbxTest1.Name = "cbxTest1"
-        cbxTest1.Size = New Size(151, 28)
-        cbxTest1.TabIndex = 22
+        cbxAccessLevel.FormattingEnabled = True
+        cbxAccessLevel.Location = New Point(696, 54)
+        cbxAccessLevel.Name = "cbxAccessLevel"
+        cbxAccessLevel.Size = New Size(169, 28)
+        cbxAccessLevel.TabIndex = 22
         ' 
         ' btnDone
         ' 
-        btnDone.Location = New Point(595, 202)
+        btnDone.BackColor = Color.AntiqueWhite
+        btnDone.BackgroundImageLayout = ImageLayout.None
+        btnDone.FlatAppearance.BorderColor = SystemColors.ControlDarkDark
+        btnDone.FlatAppearance.BorderSize = 0
+        btnDone.FlatStyle = FlatStyle.Popup
+        btnDone.ForeColor = Color.Crimson
+        btnDone.Location = New Point(669, 202)
+        btnDone.Margin = New Padding(0)
         btnDone.Name = "btnDone"
-        btnDone.Size = New Size(175, 29)
+        btnDone.Size = New Size(197, 29)
         btnDone.TabIndex = 23
         btnDone.Text = "Done"
-        btnDone.UseVisualStyleBackColor = True
+        btnDone.UseVisualStyleBackColor = False
         ' 
-        ' Form1
+        ' btnBack
         ' 
-        AutoScaleDimensions = New SizeF(8F, 20F)
+        btnBack.BackColor = Color.AntiqueWhite
+        btnBack.BackgroundImageLayout = ImageLayout.None
+        btnBack.FlatAppearance.BorderColor = SystemColors.ControlDarkDark
+        btnBack.FlatAppearance.BorderSize = 0
+        btnBack.FlatStyle = FlatStyle.Popup
+        btnBack.ForeColor = Color.Crimson
+        btnBack.Location = New Point(1031, 13)
+        btnBack.Margin = New Padding(0)
+        btnBack.Name = "btnBack"
+        btnBack.Size = New Size(82, 29)
+        btnBack.TabIndex = 24
+        btnBack.Text = "Back"
+        btnBack.UseVisualStyleBackColor = False
+        ' 
+        ' ManageEmployees
+        ' 
+        AutoScaleDimensions = New SizeF(9F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-        BackColor = Color.FromArgb(CByte(255), CByte(192), CByte(192))
-        ClientSize = New Size(997, 739)
+        BackColor = Color.Navy
+        ClientSize = New Size(1122, 739)
+        Controls.Add(btnBack)
         Controls.Add(btnDone)
-        Controls.Add(cbxTest1)
+        Controls.Add(cbxAccessLevel)
         Controls.Add(lblID)
         Controls.Add(txtbxID)
         Controls.Add(btnUpdate)
@@ -237,8 +276,10 @@ Partial Class Form1
         Controls.Add(txtbxLastName)
         Controls.Add(lblFName)
         Controls.Add(txtbxFirstName)
-        Name = "Form1"
-        Text = "Form1"
+        Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point)
+        ForeColor = Color.Black
+        Name = "ManageEmployees"
+        Text = "Manage Employees"
         CType(dgvEmployee, ComponentModel.ISupportInitialize).EndInit()
         CType(DatabaseConnectionBindingSource, ComponentModel.ISupportInitialize).EndInit()
         CType(DatabaseConnectionBindingSource1, ComponentModel.ISupportInitialize).EndInit()
@@ -264,6 +305,7 @@ Partial Class Form1
     Friend WithEvents btnUpdate As Button
     Friend WithEvents lblID As Label
     Friend WithEvents txtbxID As TextBox
-    Friend WithEvents cbxTest1 As ComboBox
+    Friend WithEvents cbxAccessLevel As ComboBox
     Friend WithEvents btnDone As Button
+    Friend WithEvents btnBack As Button
 End Class

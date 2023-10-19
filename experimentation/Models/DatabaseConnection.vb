@@ -33,7 +33,7 @@ Public Class DatabaseConnection
     Sub CloseDB()
         Try
             _conn.Close()
-            MessageBox.Show("Connection Closed")
+            'MessageBox.Show("Connection Closed")
         Catch ex As Exception
             MessageBox.Show("Connection not closed: " & ex.Message)
         End Try
