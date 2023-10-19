@@ -110,7 +110,7 @@ Public Class EmployeeDAO
             Return Nothing
         Finally
             CloseDB()
-            mySQLCMD.Parameters.Clear
+            mySQLCMD.Parameters.Clear()
         End Try
 
 
