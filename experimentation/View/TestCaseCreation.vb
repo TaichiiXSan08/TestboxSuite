@@ -1,6 +1,8 @@
 ﻿Public Class TestCaseCreation
     Dim templateDAO As New TemplateDAO
     Dim template As New Template
+    Dim projectDAO As New ProjectDAO
+    Dim project As New Project
 
 
     Private Sub TestCaseCreation_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -21,14 +23,9 @@
         dgvTestCase.DataSource = templateDAO.selectFieldsOfTemplate(template).tables("testcasefields")
         dgvTestCase.Refresh()
 
-        For Each column As DataGridViewColumn In dgvTestCase.Columns
-            Dim columnName As String = column.Name
-            Dim dataType As Type = column.ValueType ' Get the data type of the column
-
-            ' Display the column name and data type
-            MessageBox.Show($"Column Name: {columnName}, Data Type: {dataType.Name}")
-        Next
-
+        'populate project textfield
+        project = projectDAO.selectSpecficProjectByProjectName(Login.currentUser.projDetails)
+        txtbxProject.Text = project.projectname
 
 
     End Sub
