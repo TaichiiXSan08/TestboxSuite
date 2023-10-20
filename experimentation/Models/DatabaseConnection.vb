@@ -4,6 +4,9 @@ Public Class DatabaseConnection
     ' Define a MySqlConnection object and connection string
     Dim _conn As MySqlConnection
     Dim connectionString As String = "Server=localhost;Port=3306;Database=ntccat;User=root;Password=test123;"
+    Property mySQLCMD As MySqlCommand
+    Property mySQLDataRdr As MySqlDataReader
+    Property strSQL As String
 
     Public Property Conn() As MySqlConnection
         Get
@@ -17,6 +20,7 @@ Public Class DatabaseConnection
     Public Sub New()
         ' Initialize the MySqlConnection with the connection string
         _conn = New MySqlConnection(connectionString)
+        mySQLCMD = New MySqlCommand(strSQL, Conn)
     End Sub
 
     Public Sub ConnectDB()

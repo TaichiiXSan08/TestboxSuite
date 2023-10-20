@@ -3,6 +3,9 @@
     Dim template As New Template
     Dim projectDAO As New ProjectDAO
     Dim project As New Project
+    Dim testCase As New TestCase
+    Dim testCaseDAO As New TestCaseDAO
+
 
 
     Private Sub TestCaseCreation_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -24,18 +27,26 @@
         dgvTestCase.Refresh()
 
         'populate project textfield
-        project = projectDAO.selectSpecficProjectByProjectName(Login.currentUser.projDetails)
-        txtbxProject.Text = project.projectname
+        'project = projectDAO.selectSpecficProjectByProjectName(Login.currentUser.projDetails)
+        txtbxProject.Text = "Test Project 1"
         MessageBox.Show(project.projectname)
 
 
     End Sub
 
-    Private Sub dgvTestCase_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles dgvTestCase.CellValueChanged
-        Try
+    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+        'populate testcase obj properties
+        testCase.jiraticketnumber = txtbxJiraTicketNumber.Text
+        testCase.sprint = txtbxSprint.Text
+        testCase.name = txtbxTestCaseName.Text
 
-        Catch ex As Exception
-            MessageBox.Show(ex.Message)
-        End Try
+        'for testing purposes only
+        project.id = 1
+        project.projectname = "Test Project 1"
+        project.projectcode = "abc123"
+
+        'insert testcase to database
+        testCaseDAO.insertTestCase(testCase, template, project)
+        testCaseDAO.selectLatestTestCase(testCase)
     End Sub
 End Class
