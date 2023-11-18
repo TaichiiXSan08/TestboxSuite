@@ -32,9 +32,10 @@ Namespace My
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>
         Protected Overrides Sub OnCreateMainForm()
             'Me.MainForm = ProjectSettings
-            Me.MainForm = TestCaseCreation
+            'Me.MainForm = TestCaseCreation
             'Me.MainForm = ForgotPassword
             'Me.MainForm = ManageEmployees
+            Me.MainForm = Login
         End Sub
     End Class
 End Namespace
